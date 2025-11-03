@@ -1,7 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 from sqlalchemy import Column, Date, Integer, String, ForeignKey, DateTime, Table, Text 
-from datetime import date, datetime
+from datetime import date, datetime, timezone
 
 
 class Base(DeclarativeBase):
@@ -16,7 +16,7 @@ saved_articles = Table(
     Base.metadata,
     Column('user_id', ForeignKey('users.id'), primary_key=True),
     Column('article_id', ForeignKey('articles.id'), primary_key=True),
-    Column('saved_at', DateTime, default=datetime.now(datetime.utc))
+    Column('saved_at', DateTime, default=datetime.now(timezone.utc))
 )
 
 
@@ -31,7 +31,7 @@ class Users(Base):
     password: Mapped[str] = mapped_column(String(200), nullable=False)
     age: Mapped[int] = mapped_column(Integer, nullable=True)
     political_leaning: Mapped[str] = mapped_column(String(20), nullable=True)  # left-leaning, center, right-leaning, uncertain 
-    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now(datetime.UTC), nullable=False) #used copilot suggestion to add timezone info
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now(timezone.utc), nullable=False) #used copilot suggestion to add timezone info
 
 
     saved_articles: Mapped[list['Articles']] = relationship('Articles', secondary=saved_articles, back_populates='users_saved')
@@ -63,7 +63,7 @@ class ForumTopics(Base):
     user_id: Mapped[int] = mapped_column(ForeignKey('users.id'), nullable=False)
     title: Mapped[str] = mapped_column(String(200), nullable=False)
     content: Mapped[str] = mapped_column(Text, nullable=False)
-    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now(datetime.UTC), nullable=False)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now(timezone.utc), nullable=False)
 
 
     user: Mapped['Users'] = relationship('Users', back_populates='topics')
@@ -78,7 +78,7 @@ class ForumPosts(Base):
     topic_id: Mapped[int] = mapped_column(ForeignKey('forum_topics.id'), nullable=False)
     user_id: Mapped[int] = mapped_column(ForeignKey('users.id'), nullable=False)
     content: Mapped[str] = mapped_column(Text, nullable=False)
-    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now(timezone.utc))
 
 
     topic: Mapped['ForumTopics'] = relationship('ForumTopics', back_populates='posts')

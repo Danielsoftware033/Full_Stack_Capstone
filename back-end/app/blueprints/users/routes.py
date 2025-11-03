@@ -3,14 +3,12 @@ from .schemas import user_schema, users_schema, login_schema
 from flask import request, jsonify, render_template
 from marshmallow import ValidationError
 from app.models import Users, db
-from app.extensions import limiter
 from werkzeug.security import generate_password_hash, check_password_hash
 from app.util.auth import encode_token, token_required
 
 
 
 @users_bp.route('/login', methods=['POST'])
-@limiter.limit("5 per 10 minutes")
 def login():
     try:
         data = login_schema.load(request.json)  
@@ -58,7 +56,6 @@ def read_users():
 
 
 @users_bp.route('/profile', methods=['GET'])
-@limiter.limit("15 per hour")
 @token_required
 def read_user():
     user_id = request.user_id
@@ -94,7 +91,6 @@ def update_user():
 
 
 @users_bp.route('', methods=['DELETE'])
-@limiter.limit("5 per day")
 @token_required
 def delete_user():
     user_id = request.user_id
