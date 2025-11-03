@@ -16,7 +16,7 @@ saved_articles = Table(
     Base.metadata,
     Column('user_id', ForeignKey('users.id'), primary_key=True),
     Column('article_id', ForeignKey('articles.id'), primary_key=True),
-    Column('saved_at', DateTime, default=datetime.now(datetime.UTC))
+    Column('saved_at', DateTime, default=datetime.now(datetime.utc))
 )
 
 
@@ -30,7 +30,7 @@ class Users(Base):
     email: Mapped[str] = mapped_column(String(250), unique=True, nullable=False)
     password: Mapped[str] = mapped_column(String(200), nullable=False)
     age: Mapped[int] = mapped_column(Integer, nullable=True)
-    political_leaning: Mapped[str] = mapped_column(String(20), nullable=True)  # left, center, right, uncertain
+    political_leaning: Mapped[str] = mapped_column(String(20), nullable=True)  # left-leaning, center, right-leaning, uncertain 
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now(datetime.UTC), nullable=False) #used copilot suggestion to add timezone info
 
 
