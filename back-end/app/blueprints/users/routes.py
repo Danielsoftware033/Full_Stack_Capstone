@@ -1,8 +1,8 @@
 from app.blueprints.users import users_bp
-from .schemas import user_schema, users_schema, login_schema
+from .schemas import user_schema, users_schema, login_schema, articles_schema
 from flask import request, jsonify, render_template
 from marshmallow import ValidationError
-from app.models import Users, db
+from app.models import Users, Articles, db
 from werkzeug.security import generate_password_hash, check_password_hash
 from app.util.auth import encode_token, token_required
 
@@ -78,7 +78,6 @@ def update_user():
     except ValidationError as e:
         return jsonify({"message": e.messages}), 400
 
-    # Hash the password if updated
     if 'password' in user_data:
         user_data['password'] = generate_password_hash(user_data['password'])
 
@@ -91,10 +90,44 @@ def update_user():
 
 
 @users_bp.route('', methods=['DELETE'])
-@token_required
 def delete_user():
     user_id = request.user_id
     user = db.session.get(Users, user_id)
     db.session.delete(user)
     db.session.commit()
     return jsonify({"message": f"Successfully deleted user {user_id}"}), 200
+
+
+
+@users_bp.route('/<int:user_id>/save-article/<int:article_id>', methods=['PUT'])
+def save_article(user_id, article_id):
+    user = db.session.get(Users, user_id)
+    article = db.session.get(Articles, article_id)
+
+    if article not in user.saved_articles:  
+        user.saved_articles.append(article) 
+        db.session.commit()
+        return jsonify({
+            'message': f'Successfully saved "{article.title}" for {user.username}',
+            'user': user_schema.dump(user),
+            'saved_articles': articles_schema.dump(user.saved_articles)
+        }), 200
+
+    return jsonify("This article is already saved"), 400
+
+
+@users_bp.route('/<int:user_id>/remove-article/<int:article_id>', methods=['PUT'])
+def remove_saved_article(user_id, article_id):
+    user = db.session.get(Users, user_id)
+    article = db.session.get(Articles, article_id)
+
+    if article in user.saved_articles: 
+        user.saved_articles.remove(article)  
+        db.session.commit()
+        return jsonify({
+            'message': f'Successfully removed "{article.title}" from {user.username}\'s saved articles',
+            'user': user_schema.dump(user),
+            'saved_articles': articles_schema.dump(user.saved_articles)
+        }), 200
+
+    return jsonify("This article is not in saved articles"), 400
