@@ -14,8 +14,8 @@ db = SQLAlchemy(model_class = Base)
 saved_articles = Table(
     'saved_articles',
     Base.metadata,
-    Column('user_id', ForeignKey('users.id'), primary_key=True),
-    Column('article_id', ForeignKey('articles.id'), primary_key=True),
+    Column('user_id', ForeignKey('users.id')),
+    Column('article_id', ForeignKey('articles.id')),
     Column('saved_at', DateTime, default=datetime.now(timezone.utc))
 )
 
