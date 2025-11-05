@@ -12,7 +12,6 @@ def create_app(config_name): #the config_name can be like development, testing, 
 		app = Flask(__name__) #creating base app
 		
 		app.config.from_object(f'config.{config_name}')
-		#initialize extensions (plugging them in)
 		
 		db.init_app(app)  
 		ma.init_app(app)

@@ -25,7 +25,7 @@ def create_post():
 
     return jsonify({
         "message": "Successfully created post",
-        "posts": forum_posts_schema.dump(user.posts)
+        "posts": forum_post_schema.dump(new_post)
     }), 201
 
 
@@ -33,8 +33,8 @@ def create_post():
 @forum_posts_bp.route('/topic/<int:topic_id>', methods=['GET'])
 def get_posts_by_topic(topic_id):
     try:
-        page = int(request.args.get('page', 1))
-        per_page = int(request.args.get('per_page', 20))
+        page = int(request.args.get('page'))
+        per_page = int(request.args.get('per_page'))
         query = select(ForumPosts).where(ForumPosts.topic_id == topic_id)
         posts = db.paginate(query, page=page, per_page=per_page)
         return forum_posts_schema.jsonify(posts), 200

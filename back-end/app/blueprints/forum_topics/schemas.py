@@ -7,7 +7,7 @@ class ForumTopicSchema(ma.SQLAlchemyAutoSchema):
         model = ForumTopics  
         include_fk = True
 
-forum_topic_schema = ForumTopicSchema() 
+forum_topic_schema = ForumTopicSchema(exclude=['user_id']) 
 forum_topics_schema = ForumTopicSchema(many=True)
 create_topic_schema = ForumTopicSchema(exclude=['user_id'])
-create_topics_schema = ForumTopicSchema(exclude=['user_id'])
+create_topics_schema = ForumTopicSchema(many=True, exclude=['user_id'])

@@ -24,7 +24,7 @@ def create_topic():
 
     return jsonify({
         "message": f"Successfully created topic",
-        "topics": create_topics_schema.dump(user.topics)
+        "topics": create_topic_schema.dump(new_topic)
     }), 201
 
 
@@ -107,6 +107,8 @@ def search_topic():
     topics = db.session.query(ForumTopics).where(ForumTopics.title.ilike(f"%{title}%")).all()
 
     return forum_topics_schema.jsonify(topics), 200
+
+# to test in postman and react: http://127.0.0.1:5000/forum_topics/search?title=Trump
 
 
 
