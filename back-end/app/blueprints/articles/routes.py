@@ -83,7 +83,6 @@ def get_homepage_articles():
 
 @articles_bp.route('/bias/<string:bias>', methods=['GET'])
 def get_articles_by_bias(bias):
-    # Example: /articles/bias/Left
     articles = db.session.query(Articles).filter(Articles.bias_category.ilike(f"%{bias}%")).all()
     return articles_schema.jsonify(articles), 200
 

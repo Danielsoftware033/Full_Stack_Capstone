@@ -1,5 +1,6 @@
 from app.blueprints.users import users_bp
-from .schemas import user_schema, users_schema, login_schema, articles_schema
+from .schemas import user_schema, users_schema, login_schema
+from app.blueprints.articles.schemas import articles_schema
 from flask import request, jsonify, render_template
 from marshmallow import ValidationError
 from app.models import Users, Articles, db
@@ -34,11 +35,8 @@ def create_user():
     except ValidationError as e:
         return jsonify(e.messages), 400
 
-    # Check if email is taken
     if db.session.query(Users).where(Users.email == data['email']).first():
         return jsonify({"message": "Email is already taken"}), 400
-
-    # Hash password
     data['password'] = generate_password_hash(data['password'])
 
     new_user = Users(**data)
@@ -114,6 +112,7 @@ def save_article(user_id, article_id):
         }), 200
 
     return jsonify("This article is already saved"), 400
+
 
 
 @users_bp.route('/<int:user_id>/remove-article/<int:article_id>', methods=['PUT'])
