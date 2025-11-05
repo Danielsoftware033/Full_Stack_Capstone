@@ -1,9 +1,10 @@
 from app.blueprints.forum_topics import forum_topics_bp
-from .schemas import forum_topic_schema, forum_topics_schema
+from .schemas import forum_topic_schema, forum_topics_schema, create_topic_schema, create_topics_schema
 from flask import request, jsonify, render_template
 from marshmallow import ValidationError
 from app.models import ForumTopics, Users, db
-from app.util.auth import encode_token, token_required
+from app.util.auth import token_required
+from sqlalchemy import select
 
 
 
@@ -13,19 +14,18 @@ def create_topic():
     user = db.session.get(Users, request.user_id)
 
     try:
-        data = forum_topic_schema.load(request.json)
+        data = create_topic_schema.load(request.json)
     except ValidationError as e:
         return jsonify(e.messages), 400
 
-    new_topic = ForumTopics(**data, user_id=user.id)
+    new_topic = ForumTopics(**data, user_id=user.id)     #used copilot to know how to use token_required in unpacking user's data 
     db.session.add(new_topic)
     db.session.commit()
 
     return jsonify({
         "message": f"Successfully created topic",
-        "topics": forum_topics_schema.dump(user.forum_topics)
+        "topics": create_topics_schema.dump(user.topics)
     }), 201
-
 
 
 
@@ -34,7 +34,7 @@ def get_topics():
     try:
         page = int(request.args.get('page'))
         per_page = int(request.args.get('per_page'))
-        query = db.select(ForumTopics)
+        query = select(ForumTopics)
         topics = db.paginate(query, page=page, per_page=per_page)
         return forum_topics_schema.jsonify(topics), 200
     
@@ -95,7 +95,7 @@ def delete_topic(topic_id):
         db.session.commit()
         return jsonify({
             "message": f"Successfully deleted topic",
-            "topics": forum_topics_schema.dump(user.forum_topics)}), 200
+            "topics": forum_topics_schema.dump(user.topics)}), 200
     return jsonify({"error": "invalid topic id"}), 404
 
 

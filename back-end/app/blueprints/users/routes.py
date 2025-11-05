@@ -76,8 +76,11 @@ def update_user():
     except ValidationError as e:
         return jsonify({"message": e.messages}), 400
 
-    if 'password' in user_data:
-        user_data['password'] = generate_password_hash(user_data['password'])
+    user_data['password'] = generate_password_hash(user_data['password'])
+
+    existing = db.session.query(Users).where(Users.email == user_data['email']).first()
+    if existing:
+        return jsonify({"error": "Email already taken."})
 
     for key, value in user_data.items():
         setattr(user, key, value)

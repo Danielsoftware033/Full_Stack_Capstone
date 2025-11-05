@@ -1,4 +1,4 @@
-from app.extensions import ma #from app 1st because extensions is within app folder
+from app.extensions import ma 
 from app.models import ForumTopics
 
 
@@ -9,3 +9,5 @@ class ForumTopicSchema(ma.SQLAlchemyAutoSchema):
 
 forum_topic_schema = ForumTopicSchema() 
 forum_topics_schema = ForumTopicSchema(many=True)
+create_topic_schema = ForumTopicSchema(exclude=['user_id'])
+create_topics_schema = ForumTopicSchema(exclude=['user_id'])
