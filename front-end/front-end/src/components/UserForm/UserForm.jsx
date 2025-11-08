@@ -1,5 +1,6 @@
 import React from 'react'
 import {useState} from 'react'
+import {useNavigate} from 'react-router-dom'
 
 const UserForm = ({ submitFunction }) => {
   const [formData, setFormData] = useState({
@@ -11,15 +12,19 @@ const UserForm = ({ submitFunction }) => {
     age: '',
     political_leaning: ''
   })
+  const navigate = useNavigate();
 
   const handleChange = (event) => {
     const { name, value } = event.target
     setFormData(prevData => ({ ...prevData, [name]: value }))
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    submitFunction(formData)
+    let signedup = await submitFunction(formData)
+    if (signedup){
+      navigate("/login");
+    }
   }
 
   return (

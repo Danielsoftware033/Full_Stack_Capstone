@@ -18,6 +18,16 @@ const API_URL = "http://127.0.0.1:5000";
 export const NewsProvider = ({ children }) => {
     const [topNews, setTopNews] = useState([]); 
     const [searchResults, setSearchResults] = useState([]); 
+    const [token, setToken] = useState(null);
+    const [user, setUser] = useState(null)
+
+    // useEffect(() => {
+    //     const savedToken = localStorage.getItem('token');
+    //     const savedUser = localStorage.getItem('user');
+    //     setToken(savedToken);
+    //     const userData = JSON.parse(savedUser)
+    //     setUser(userData);
+    // },[]);
 
 
 //     useEffect(() => {
@@ -59,12 +69,30 @@ export const NewsProvider = ({ children }) => {
         });
 
         const data = await response.json();
-        // console.log("SEARCH RESULTS:", data);
         setSearchResults(data);
     };
 
 
+    const login = async (email, password) => {
+        const response = await fetch(API_URL+'/users/login', { 
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' 
+            },
+            body: JSON.stringify({ 
+                email: email, 
+                password: password 
+            })
+        });
 
+        const loginData = await response.json(); 
+
+        setToken(loginData.token); 
+        setUser(loginData.user);   
+        localStorage.setItem('token', loginData.token);
+        localStorage.setItem('user', JSON.stringify(loginData.user));
+    };
+
+    
     const registerUser = async (registerData) => {
         const response = await fetch(API_URL+'/users', {
             method: 'POST',
@@ -72,12 +100,19 @@ export const NewsProvider = ({ children }) => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(registerData)
-        })
+        });
 
         const responseData = await response.json()
         console.log(responseData)
-    };
 
+        if (!response.ok){
+            return false;
+        }
+
+        return true
+
+        }
+    
 
 
 
@@ -87,8 +122,13 @@ export const NewsProvider = ({ children }) => {
         searchResults,
         fetchTopNews,
         searchNews,
-        registerUser
+        login,
+        registerUser,
+        token,
+        user
     }
+
+
 
     return (
         <NewsContext.Provider value={value}>
