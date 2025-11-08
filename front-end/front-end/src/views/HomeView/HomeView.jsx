@@ -1,9 +1,25 @@
-import React from 'react'
+import React, { useEffect } from "react";
+import { useNews } from "../../contexts/NewsContext";
+import ArticleCard from "../../components/ArticleCard/ArticleCard";
 
 const HomeView = () => {
-  return (
-    <div>HomeView</div>
-  )
-}
+  const { topNews, fetchTopNews } = useNews();
 
-export default HomeView
+  useEffect(() => {
+    fetchTopNews();
+  }, []);
+
+  return (
+    <div>
+      <h1>Top News</h1>
+
+      <div>
+        {topNews.map((article, idx) => (
+          <ArticleCard key={idx} article={article} />
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default HomeView;

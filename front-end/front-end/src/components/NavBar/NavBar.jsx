@@ -102,6 +102,7 @@ const NavBar = () => {
           <li><NavLink style={{ color: "white", textDecoration: "none" }} to="/saved">SAVED</NavLink></li>
           <li><NavLink style={{ color: "white", textDecoration: "none" }} to="/login">LOGIN</NavLink></li>
           <li><NavLink style={{ color: "white", textDecoration: "none" }} to="/signup">SIGN UP</NavLink></li>
+          <li><NavLink style={{ color: "white", textDecoration: "none" }} to="/profile">PROFILE</NavLink></li>
         </ul>
       </nav>
     </header>
