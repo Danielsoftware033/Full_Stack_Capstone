@@ -1,9 +1,9 @@
 import React from 'react'
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 import {useNavigate} from 'react-router-dom'
 
-const UserForm = ({ submitFunction }) => {
-  const [formData, setFormData] = useState({
+const UserForm = ({ submitFunction, initialData }) => {
+  const [formData, setFormData] = useState({  //used copilot for adding initialData since it will add more flexibity to this component
     first_name: '',
     last_name: '',
     username: '',
@@ -12,7 +12,12 @@ const UserForm = ({ submitFunction }) => {
     age: '',
     political_leaning: ''
   })
-  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (initialData) {
+      setFormData(initialData);
+    }
+  }, [initialData]);
 
   const handleChange = (event) => {
     const { name, value } = event.target
@@ -21,10 +26,8 @@ const UserForm = ({ submitFunction }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    let signedup = await submitFunction(formData)
-    if (signedup){
-      navigate("/login");
-    }
+    await submitFunction(formData)
+
   }
 
   return (

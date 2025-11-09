@@ -21,13 +21,27 @@ export const NewsProvider = ({ children }) => {
     const [token, setToken] = useState(null);
     const [user, setUser] = useState(null)
 
-    // useEffect(() => {
-    //     const savedToken = localStorage.getItem('token');
-    //     const savedUser = localStorage.getItem('user');
-    //     setToken(savedToken);
-    //     const userData = JSON.parse(savedUser)
-    //     setUser(userData);
-    // },[]);
+    useEffect(() => {
+        const savedToken = localStorage.getItem('token');  //used copilot to rewrite this, because previous version caused errors when localStorage had 'undefined' string
+        const savedUser = localStorage.getItem('user');
+
+        // guard against stored string 'undefined' or missing keys
+        setToken(savedToken && savedToken !== 'undefined' ? savedToken : null);
+
+        let userData = null;
+        if (savedUser && savedUser !== 'undefined') {
+            try {
+                userData = JSON.parse(savedUser);
+            } catch (err) {
+                // corrupt value in localStorage; clear it and continue
+                console.error('Failed to parse saved user from localStorage:', err, savedUser);
+                localStorage.removeItem('user');
+                userData = null;
+            }
+        }
+
+        setUser(userData);
+    },[]);
 
 
 //     useEffect(() => {
@@ -84,12 +98,19 @@ export const NewsProvider = ({ children }) => {
             })
         });
 
+        if (!response.ok){
+            console.error('There was an issue logging in.')
+            return false
+        }
+
         const loginData = await response.json(); 
+        console.log(loginData)
 
         setToken(loginData.token); 
         setUser(loginData.user);   
         localStorage.setItem('token', loginData.token);
         localStorage.setItem('user', JSON.stringify(loginData.user));
+        return true
     };
 
     
@@ -114,6 +135,57 @@ export const NewsProvider = ({ children }) => {
         }
     
 
+    const updateUser = async (updateData) => {
+        const response = await fetch(API_URL+'/users', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token // make sure token is in your context
+            },
+            body: JSON.stringify(updateData)
+        });
+
+        if (!response.ok) {
+            console.error("There was an issue updating.")
+            return false
+        }
+
+        const updatedUserData = await response.json();
+        console.log(updatedUserData)
+        setUser(updatedUserData.user);
+        localStorage.setItem('user', JSON.stringify(updatedUserData.user));
+        return true;
+    };
+
+
+    const logout = () => {
+        setToken('') 
+        setUser('')
+        localStorage.removeItem('token') 
+        localStorage.removeItem('user')
+    }
+
+
+    const deleteUser = async () => {
+        const response = await fetch(API_URL+'/users', {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            }
+        });
+
+        if (!response.ok) {
+            console.error('Failed to delete user');
+            return false;
+        }
+
+        const responseData = await response.json();
+        console.log(responseData);
+
+        logout(); 
+        return true;
+    };
 
 
 
@@ -124,6 +196,9 @@ export const NewsProvider = ({ children }) => {
         searchNews,
         login,
         registerUser,
+        updateUser,
+        deleteUser,
+        logout,
         token,
         user
     }

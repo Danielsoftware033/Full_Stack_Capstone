@@ -5,6 +5,7 @@ import SearchView from "./views/SearchView/SearchView"
 import LoginView from './views/LoginView/LoginView'
 import SignupView from './views/SignupView/SignupView'
 import ProfileView from './views/ProfileView/ProfileView'
+import UpdateProfileView from './views/UpdateProfileView/UpdateProfileView'
 import SavedView from './views/SavedView/SavedView'
 import ForumView from './views/ForumView/ForumView'
 
@@ -23,8 +24,9 @@ function App() {
           <Route path="/login" element={<LoginView />} />
           <Route path="/signup" element={<SignupView />} />
           <Route path="/profile" element={<ProfileView />} />
+          <Route path="/profile/update" element={<UpdateProfileView />} />     
           <Route path="/saved" element={<SavedView />} />
-          <Route path="/forum" element={<ForumView />} />         
+          <Route path="/forum" element={<ForumView />} />    
         </Routes>
         
       </BrowserRouter>

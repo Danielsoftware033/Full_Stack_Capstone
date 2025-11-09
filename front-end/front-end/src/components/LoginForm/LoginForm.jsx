@@ -17,8 +17,8 @@ const LoginForm = () => {
     if (loggedin) {
         navigate('/')
     }
-    setSuccess(loggedin)
-  };
+    setSuccess(loggedin)   //*personal note: the loggedin has either true or false 
+  }; 
 
 
   return (
