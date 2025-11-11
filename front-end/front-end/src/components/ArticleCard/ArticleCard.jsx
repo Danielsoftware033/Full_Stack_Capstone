@@ -1,6 +1,6 @@
 import React from "react";
 
-const ArticleCard = ({ article }) => {
+const ArticleCard = ({ article, onSave, onRemove }) => {
   return (
     <div>
       <img src={article.image_url} alt={article.title} width={150} />
@@ -10,6 +10,10 @@ const ArticleCard = ({ article }) => {
       <a href={article.url} target="_blank">
         Read more
       </a>
+      {/* copilot suggestion to add Save and Remove buttons based on props */}
+      {onSave && <button onClick={() => onSave(article.id)}>Save</button>}
+
+      {onRemove && <button onClick={() => onRemove(article.id)}>Remove</button>}
     </div>
   );
 };

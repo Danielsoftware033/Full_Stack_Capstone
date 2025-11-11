@@ -1,8 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 
-
 // Creating the news context
-const NewsContext = createContext();
+const NewsContext = createContext(); 
 
 // Create hook to consume context (give access to context variables)
 export const useNews = () => {
@@ -31,7 +30,6 @@ export const NewsProvider = ({ children }) => {
             try {
                 userData = JSON.parse(savedUser);
             } catch (err) {
-                // corrupt value in localStorage; clear it and continue
                 console.error('Failed to parse saved user from localStorage:', err, savedUser);
                 localStorage.removeItem('user');
                 userData = null;

@@ -1,9 +1,13 @@
 import React, { useEffect } from "react";
 import { useNews } from "../../contexts/NewsContext";
+import { useArticles } from "../../contexts/SavedArticlesContext"
 import ArticleCard from "../../components/ArticleCard/ArticleCard";
+
 
 const HomeView = () => {
   const { topNews, fetchTopNews } = useNews();
+  const {saveArticle} = useArticles();
+
 
   useEffect(() => {
     fetchTopNews();
@@ -15,7 +19,7 @@ const HomeView = () => {
 
       <div>
         {topNews.map((article, idx) => (
-          <ArticleCard key={idx} article={article} />
+          <ArticleCard key={idx} article={article} onSave={saveArticle}/>
         ))}
       </div>
     </div>
