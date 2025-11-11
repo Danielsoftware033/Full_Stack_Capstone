@@ -33,12 +33,11 @@ const TopicPage = () => {
 
   const handleSaveTopicEdit = async () => {
     const success = await updateTopic(topic.id, {
-      title: topic.title,   // make sure you have a state for the edited title
+      title: topic.title,   
       content: editedTopicContent,
     });
 
     if (success) {
-      // refresh topic to show updated content
       const updated = await getTopic(topic.id);
       setTopic(updated);
       setIsEditingTopic(false);
@@ -95,12 +94,11 @@ const TopicPage = () => {
     console.log('saving post', postId, editedPostContent);
     const success = await updatePost(postId, { 
       content: editedPostContent,
-      topic_id: topic.id  // include topic_id for the backend
+      topic_id: topic.id  
     });
     if (success) {
       setEditingPostId(null);
       setEditedPostContent("");
-      // refresh posts to make sure UI matches server state
       await fetchPostsByTopic(topicId);
     } else {
       alert("Failed to update post.");
