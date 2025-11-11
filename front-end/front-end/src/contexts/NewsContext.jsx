@@ -11,8 +11,6 @@ export const useNews = () => {
 }
 
 
-
-
 const API_URL = "http://127.0.0.1:5000";
 
 export const NewsProvider = ({ children }) => {
@@ -25,7 +23,7 @@ export const NewsProvider = ({ children }) => {
         const savedToken = localStorage.getItem('token');  //used copilot to rewrite this, because previous version caused errors when localStorage had 'undefined' string
         const savedUser = localStorage.getItem('user');
 
-        // guard against stored string 'undefined' or missing keys
+        // used copilot: guard against stored string 'undefined' or missing keys
         setToken(savedToken && savedToken !== 'undefined' ? savedToken : null);
 
         let userData = null;

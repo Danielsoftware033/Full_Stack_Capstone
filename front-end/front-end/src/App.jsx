@@ -8,6 +8,8 @@ import ProfileView from './views/ProfileView/ProfileView'
 import UpdateProfileView from './views/UpdateProfileView/UpdateProfileView'
 import SavedView from './views/SavedView/SavedView'
 import ForumView from './views/ForumView/ForumView'
+import CreateTopicView from './views/CreateTopicView/CreateTopicView'
+import TopicView from './views/TopicView/TopicView'
 
 
 
@@ -26,7 +28,9 @@ function App() {
           <Route path="/profile" element={<ProfileView />} />
           <Route path="/profile/update" element={<UpdateProfileView />} />     
           <Route path="/saved" element={<SavedView />} />
-          <Route path="/forum" element={<ForumView />} />    
+          <Route path="/forum" element={<ForumView />} />  
+          <Route path="/forum/create-topic" element={<CreateTopicView />} /> 
+          <Route path="/forum/topic/:topicId" element={<TopicView />} />   
         </Routes>
         
       </BrowserRouter>

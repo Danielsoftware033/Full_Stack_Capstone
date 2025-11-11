@@ -13,7 +13,7 @@ export const useForums = () => {
 
 const API_URL = "http://127.0.0.1:5000";
 
-export const NewsProvider = ({ children }) => {
+export const ForumsProvider = ({ children }) => {
     const {token} = useNews();
     const [topics, setTopics] = useState([]);
     const [posts, setPosts] = useState({});
@@ -30,8 +30,8 @@ export const NewsProvider = ({ children }) => {
         });
 
         if (!response.ok) {
-            console.error("Failed to create topic");
-            return false;
+            console.error("Failed to create topic"); 
+            return false;                           
         }
 
         const responseData = await response.json();
