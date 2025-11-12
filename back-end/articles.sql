@@ -1,0 +1,1 @@
+SELECT bias_category, COUNT(*) FROM articles GROUP BY bias_category;

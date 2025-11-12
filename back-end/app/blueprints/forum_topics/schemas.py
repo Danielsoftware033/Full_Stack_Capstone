@@ -1,8 +1,11 @@
 from app.extensions import ma 
 from app.models import ForumTopics
+from app.blueprints.users.schemas import UserSchema
 
 
 class ForumTopicSchema(ma.SQLAlchemyAutoSchema):
+    user = ma.Nested(UserSchema)
+    
     class Meta:
         model = ForumTopics  
         include_fk = True

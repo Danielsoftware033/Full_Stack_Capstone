@@ -77,6 +77,7 @@ def update_post(post_id):
 def delete_post(post_id):
     post = db.session.get(ForumPosts, post_id)
     user_id = request.user_id
+    user = db.session.get(Users, user_id)
 
     if not post:
         return jsonify({"message": "Post not found"}), 404
@@ -86,7 +87,9 @@ def delete_post(post_id):
 
     db.session.delete(post)
     db.session.commit()
-    return jsonify({"message": "Successfully deleted post"}), 200
+    return jsonify({
+        "message": "Successfully deleted post",
+        "posts": forum_posts_schema.dump(user.posts)}), 200
 
 
 

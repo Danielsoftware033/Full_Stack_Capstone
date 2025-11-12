@@ -5,6 +5,7 @@ from .blueprints.users import users_bp
 from .blueprints.articles import articles_bp
 from .blueprints.forum_topics import forum_topics_bp
 from .blueprints.forum_posts import forum_posts_bp
+from flask_cors import CORS
 
 
 def create_app(config_name): #the config_name can be like development, testing, ect.
@@ -12,6 +13,7 @@ def create_app(config_name): #the config_name can be like development, testing, 
 		app = Flask(__name__) #creating base app
 		
 		app.config.from_object(f'config.{config_name}')
+		CORS(app)
 		
 		db.init_app(app)  
 		ma.init_app(app)

@@ -21,7 +21,8 @@ def login():
         token = encode_token(user.id)
         return jsonify({
             "message": f"Welcome {user.username}",
-            "token": token
+            "token": token,
+            "user": user_schema.dump(user)
         }), 200
 
     return jsonify({"message": "Invalid email or password!"}), 403
@@ -42,7 +43,10 @@ def create_user():
     new_user = Users(**data)
     db.session.add(new_user)
     db.session.commit()
-    return user_schema.jsonify(new_user), 201
+    return jsonify({
+        "message": "successfully create user",
+        "user": user_schema.dump(new_user)
+    }), 201
 
 
 
@@ -78,7 +82,7 @@ def update_user():
 
     user_data['password'] = generate_password_hash(user_data['password'])
 
-    existing = db.session.query(Users).where(Users.email == user_data['email']).first()
+    existing = db.session.query(Users).where(Users.email == user_data['email']).where(Users.id != user_id).first()
     if existing:
         return jsonify({"error": "Email already taken."})
 
@@ -86,11 +90,15 @@ def update_user():
         setattr(user, key, value)
 
     db.session.commit()
-    return user_schema.jsonify(user), 200
+    return jsonify({
+    "message": "successfully upadated account",
+    "user": user_schema.dump(user)
+    }), 200
 
 
 
 @users_bp.route('', methods=['DELETE'])
+@token_required
 def delete_user():
     user_id = request.user_id
     user = db.session.get(Users, user_id)
