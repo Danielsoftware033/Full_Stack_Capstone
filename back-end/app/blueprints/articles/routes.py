@@ -197,36 +197,7 @@ def delete_article(article_id):
     return jsonify({"message": f"Successfully deleted article {article_id}"}), 200
 
 
-@articles_bp.route('/remove-duplicates', methods=['GET', 'POST'])
-def remove_duplicates():
-    """Remove duplicate articles from database, keeping only the most recent one for each URL"""
-    # Find all URLs that have duplicates
-    duplicate_urls = db.session.query(Articles.url, func.count(Articles.id).label('count'))\
-        .group_by(Articles.url)\
-        .having(func.count(Articles.id) > 1)\
-        .all()
-    
-    removed_count = 0
-    
-    for url, count in duplicate_urls:
-        # Get all articles with this URL, ordered by ID (keep the first/oldest one)
-        articles = db.session.query(Articles)\
-            .filter(Articles.url == url)\
-            .order_by(Articles.id.asc())\
-            .all()
-        
-        # Delete all but the first one
-        for article in articles[1:]:
-            db.session.delete(article)
-            removed_count += 1
-    
-    db.session.commit()
-    
-    return jsonify({
-        "message": "Duplicates removed successfully",
-        "duplicate_urls_found": len(duplicate_urls),
-        "articles_removed": removed_count
-    }), 200
+
 
 
 @articles_bp.route('/fetch', methods=['GET'])
@@ -250,7 +221,7 @@ def fetch_articles():
     for a in data:
         article_url = a.get('url')
         
-        # Check if article already exists by URL
+        
         existing_article = db.session.query(Articles).filter(Articles.url == article_url).first()
         if existing_article:
             duplicates_skipped += 1
