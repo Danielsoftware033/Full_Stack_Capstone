@@ -8,71 +8,7 @@ import requests, os
 from datetime import datetime, timedelta, timezone
 from sqlalchemy import func
 
-# bias_map = {
-#     "ABC News": "Left-Leaning",
-#     "AlterNet": "Left-Leaning",
-#     "The Atlantic": "Left-Leaning",
-#     "Bloomberg": "Left-Leaning",
-#     "CBS News": "Left-Leaning",
-#     "CNN": "Left-Leaning",
-#     "Democracy Now": "Left-Leaning",
-#     "Huffpost": "Left-Leaning",
-#     "Insider": "Left-Leaning",
-#     "Jacobin": "Left-Leaning",
-#     "Mother Jones": "Left-Leaning",
-#     "MSNBC": "Left-Leaning",
-#     "NPR": "Left-Leaning",
-#     "POLITICO": "Left-Leaning",
-#     "ProPublica": "Left-Leaning",
-#     "Slate": "Left-Leaning",
-#     "The Daily Beast": "Left-Leaning",
-#     "The Guardian": "Left-Leaning",
-#     "The Intercept": "Left-Leaning",
-#     "The Nation": "Left-Leaning",
-#     "The New Yorker": "Left-Leaning",
-#     "The New York Times": "Left-Leaning",
-#     "The Washington Post": "Left-Leaning",
-#     "TIME Magazine": "Left-Leaning",
-#     "USA Today": "Left-Leaning",
-#     "Vox": "Left-Leaning",
-#     "Yahoo News": "Left-Leaning",
-#     "The Associated Press News": "Left-Leaning",
-#     "Axios": "Center",
-#     "BBC News": "Center",
-#     "The Christian Science Monitor": "Center",
-#     "Forbes": "Center",
-#     "MarketWatch": "Center",
-#     "NewsNation": "Center",
-#     "Newsweek": "Center",
-#     "RealClearPolitics": "Center",
-#     "Reuters": "Center",
-#     "The Hill": "Center",
-#     "The Wall Street Journal": "Center",
-#     "The American Conservative": "Right-Leaning",
-#     "The American Spectator": "Right-Leaning",
-#     "The Christian Broadcasting Network": "Right-Leaning",
-#     "The Daily Caller": "Right-Leaning",
-#     "The Daily Mail": "Right-Leaning",
-#     "The Daily Wire": "Right-Leaning",
-#     "The Dispatch": "Right-Leaning",
-#     "The Epoch Times": "Right-Leaning",
-#     "Fox Business": "Right-Leaning",
-#     "Fox News": "Right-Leaning",
-#     "Independent Journal Review": "Right-Leaning",
-#     "Reason": "Right-Leaning",
-#     "The Federalist": "Right-Leaning",
-#     "The New York Post": "Right-Leaning",
-#     "The New York Post-Opinion": "Right-Leaning",
-#     "The Wall Street Journal-Opinion": "Right-Leaning",
-#     "The Washington Examiner": "Right-Leaning",
-#     "The Washington Free Beacon": "Right-Leaning",
-#     "The Washington Times": "Right-Leaning",
-#     "Newsmax": "Right-Leaning",
-#     "One America News Network": "Right-Leaning",
-#     "The Post Millennial": "Right-Leaning",
-#     "Breitbart": "Right-Leaning",
-#     "Blaze Media": "Right-Leaning"
-# }
+
 
 bias_map = {
     "ABC News": "Left-Leaning",
@@ -309,19 +245,74 @@ def fetch_articles():
     return articles_schema.jsonify(articles_added), 201
 
 
+@articles_bp.route('/search', methods=['GET'])     # used a combination of gnews.io documents, myself and copilot suggestion for the api function
+def search_articles():
+    query = request.args.get('q')
+    if not query:
+        return jsonify({"message": "Please provide a search query"}), 400
+
+    api_key = '3874d035209a3cb9b3bcaade67a45222'
+
+    url = f'https://gnews.io/api/v4/search?q={query}&lang=en&country=us&max=50&apikey={api_key}'
+    response = requests.get(url)
+
+    if response.status_code != 200:
+        return jsonify({"message": "Failed to fetch news"}), response.status_code
+
+    data = response.json().get('articles', [])
+    if not data:
+        return jsonify({"message": "No articles found"}), 404
+
+    articles_added = []
+
+
+    for a in data:
+        source_name = a.get('source', {}).get('name', '')
+        bias = bias_map.get(source_name, 'Unknown')
+
+        published_str = a.get('publishedAt')
+        published_at = None
+        if published_str:
+            try:
+                published_at = datetime.strptime(published_str, "%Y-%m-%dT%H:%M:%SZ")
+            except ValueError:
+                published_at = None
+
+        existing_article = db.session.query(Articles).filter(Articles.url == a.get('url')).first()
+        if existing_article:
+            articles_added.append(existing_article)
+            continue
+
+        new_article = Articles(
+            title=a.get('title'),
+            source_name=source_name,
+            url=a.get('url'),
+            description=a.get('description'),
+            content=a.get('content'),
+            image_url=a.get('image'),
+            published_at=published_at,
+            bias_category=bias
+        )
+        db.session.add(new_article)
+        articles_added.append(new_article)
+
+    db.session.commit()
+    return articles_schema.jsonify(articles_added), 201
+
+
 
 
 # copilot helped me figure out how to implement the refresh endpoint
 @articles_bp.route('/refresh', methods=['POST'])
 @token_required
 def refresh_articles():
-    """Refresh articles in the DB.
+#    Refresh articles in the DB.
 
-    - Deletes articles older than 24 hours that are not saved by any user.
-    - Fetches up to `target_total` fresh articles from GNews (paged), avoids duplicates by URL.
+#     - Deletes articles older than 24 hours that are not saved by any user.
+#     - Fetches up to `target_total` fresh articles from GNews (paged), avoids duplicates by URL.
 
-    Protected by token_required; consider restricting to admin users in production.
-    """
+#     Protected by token_required; consider restricting to admin users in production.
+  
     # Configurable parameters
     try:
         target_total = int(request.args.get('target', 1000))
@@ -470,59 +461,11 @@ def homepage_balanced():
 
 
 
-@articles_bp.route('/search', methods=['GET'])     # used a combination of gnews.io documents, myself and copilot suggestion for the api function
-def search_articles():
-    query = request.args.get('q')
-    if not query:
-        return jsonify({"message": "Please provide a search query"}), 400
-
-    api_key = '3874d035209a3cb9b3bcaade67a45222'
-
-    url = f'https://gnews.io/api/v4/search?q={query}&lang=en&country=us&max=50&apikey={api_key}'
-    response = requests.get(url)
-
-    if response.status_code != 200:
-        return jsonify({"message": "Failed to fetch news"}), response.status_code
-
-    data = response.json().get('articles', [])
-    if not data:
-        return jsonify({"message": "No articles found"}), 404
-
-    articles_added = []
 
 
-    for a in data:
-        source_name = a.get('source', {}).get('name', '')
-        bias = bias_map.get(source_name, 'Unknown')
 
-        published_str = a.get('publishedAt')
-        published_at = None
-        if published_str:
-            try:
-                published_at = datetime.strptime(published_str, "%Y-%m-%dT%H:%M:%SZ")
-            except ValueError:
-                published_at = None
 
-        existing_article = db.session.query(Articles).filter(Articles.url == a.get('url')).first()
-        if existing_article:
-            articles_added.append(existing_article)
-            continue
 
-        new_article = Articles(
-            title=a.get('title'),
-            source_name=source_name,
-            url=a.get('url'),
-            description=a.get('description'),
-            content=a.get('content'),
-            image_url=a.get('image'),
-            published_at=published_at,
-            bias_category=bias
-        )
-        db.session.add(new_article)
-        articles_added.append(new_article)
-
-    db.session.commit()
-    return articles_schema.jsonify(articles_added), 201
 
 
 # @articles_bp.route('', methods=['POST'])      #maybe will use in the future for admin purposes

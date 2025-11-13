@@ -84,12 +84,20 @@ def delete_post(post_id):
 
     if user_id != post.user_id:
         return jsonify({"error": "Access denied"}), 403
-
+    
+    # personal note:
+    # got post.topic_id before deleting post so that we know what topic we're on
+    # so that instead of returning just the user's posts, we can return
+    # all different users' posts for that topic
+    topic_id = post.topic_id
     db.session.delete(post)
     db.session.commit()
+    
+    remaining_posts = db.session.query(ForumPosts).filter(ForumPosts.topic_id == topic_id).all()
     return jsonify({
         "message": "Successfully deleted post",
-        "posts": forum_posts_schema.dump(user.posts)}), 200
+        "posts": forum_posts_schema.dump(remaining_posts)
+    }), 200
 
 
 

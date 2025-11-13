@@ -7,5 +7,5 @@ class DevelopmentConfig():
 ##create TestingConfig and ProductionConfig classes as placeholders and use pass
 
 
-# class ProductionConfig():
-#     SQLALCHEMY_DATABASE_URI = os.environ.get('SQLALCHEMY_DATABASE_URI') or 'sqlite:///dev.db'
+class ProductionConfig():
+    SQLALCHEMY_DATABASE_URI = os.environ.get('SQLALCHEMY_DATABASE_URI') or 'sqlite:///dev.db'
