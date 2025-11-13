@@ -1,3 +1,5 @@
+/*Used copilot and personal adjustments to stylize*/
+
 /* ==================== MAIN CONTAINER ==================== */
 #homeView {
     max-width: 1400px;
@@ -77,16 +79,29 @@
 }
 
 .filterBtn:hover {
-    background-color: #1e2a8f;
-    color: #ffffff;
+    background-color: #f0f2f7;
+    color: #1e2a8f;
+    border-color: #2d3fb8;
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(30, 42, 143, 0.3);
+    box-shadow: 0 4px 12px rgba(30, 42, 143, 0.25);
 }
 
 .filterBtn.active {
     background-color: #1e2a8f;
     color: #ffffff;
     box-shadow: 0 4px 12px rgba(30, 42, 143, 0.3);
+}
+
+/* Force readable hover colors regardless of cascade */
+#filterButtons .filterBtn:hover {
+    background-color: #f0f2f7 !important;
+    color: #1e2a8f !important;
+}
+
+/* Keep active button styling even on hover */
+#filterButtons .filterBtn.active:hover {
+    background-color: #1e2a8f !important;
+    color: #ffffff !important;
 }
 
 /* ==================== CATEGORY SECTIONS ==================== */

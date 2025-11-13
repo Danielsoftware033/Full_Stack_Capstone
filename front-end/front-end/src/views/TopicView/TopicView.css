@@ -1,3 +1,5 @@
+/*Used copilot and personal adjustments to stylize*/
+
 /* ==================== MAIN CONTAINER ==================== */
 #topicView {
   max-width: 1000px;
@@ -111,20 +113,21 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  height: 32px;            /* smaller height */
-  padding: 0 10px;         /* tighter horizontal padding */
-  min-width: 96px;         /* smaller base min-width */
+  height: 28px;
+  padding: 0 12px;
+  max-width: max-content;
   box-sizing: border-box;
-  font-size: 0.8rem;       /* slightly smaller font */
+  font-size: 0.8rem;
   font-weight: 600;
   text-transform: none;
   letter-spacing: 0.2px;
   color: #1a1a1a;
-  border: 1px solid #d0d7de; /* visible neutral boundary for default buttons */
+  border: 1px solid #d0d7de;
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.15s ease, box-shadow 0.15s ease, color 0.15s ease;
   background: #ffffff;
+  white-space: nowrap;
 }
 
 /* Subtle hover without layout shift/overlap */
@@ -141,20 +144,6 @@
 
 .dangerBtn { color: #d32f2f; border-color: #d32f2f; }
 .dangerBtn:hover { color: #ffffff; background-color: #d32f2f; box-shadow: 0 2px 6px rgba(211,47,47,0.25); }
-
-/* Ensure consistent widths in action groups */
-.topicActions .actionBtn,
-.postActions .actionBtn {
-  min-width: 100px; /* reduced group min-width for smaller look */
-}
-
-@media (max-width: 480px) {
-  .topicActions .actionBtn,
-  .postActions .actionBtn {
-    min-width: unset;
-    width: 100%;
-  }
-}
 
 /* ==================== RESPONSIVE ==================== */
 @media (max-width: 768px) {

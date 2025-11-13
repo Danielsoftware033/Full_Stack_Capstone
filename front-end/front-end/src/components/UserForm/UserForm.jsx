@@ -3,8 +3,8 @@ import {useState, useEffect} from 'react'
 import {useNavigate, Link} from 'react-router-dom'
 import './UserForm.css'
 
-const UserForm = ({ submitFunction, initialData }) => {
-  const [formData, setFormData] = useState({  //used copilot for adding initialData since it will add more flexibity to this component
+const UserForm = ({ submitFunction, initialData, isUpdate = false }) => {
+  const [formData, setFormData] = useState({
     first_name: '',
     last_name: '',
     username: '',
@@ -34,10 +34,12 @@ const UserForm = ({ submitFunction, initialData }) => {
   return (
     <div id="signupView">
       <div id="signupCard">
-        <div id="signupHeader">
-          <h2 id="signupTitle">Create Account</h2>
-          <p id="signupSubtitle">Join us to get started with personalized news</p>
-        </div>
+        {!isUpdate && (
+          <div id="signupHeader">
+            <h2 id="signupTitle">Create Account</h2>
+            <p id="signupSubtitle">Join us to get started with personalized news</p>
+          </div>
+        )}
 
         <form id="signupForm" onSubmit={(e) => handleSubmit(e)}>
           <div className="formRow">
@@ -142,13 +144,17 @@ const UserForm = ({ submitFunction, initialData }) => {
           </div>
 
           <div className="formActions">
-            <button type="submit" className="actionBtn saveBtn">Create Account</button>
+            <button type="submit" className="actionBtn saveBtn">
+              {isUpdate ? 'Update Profile' : 'Create Account'}
+            </button>
           </div>
         </form>
 
-        <p className="loginPrompt">
-          Already have an account? <Link to="/login" className="loginLink">Sign in here</Link>
-        </p>
+        {!isUpdate && (
+          <p className="loginPrompt">
+            Already have an account? <Link to="/login" className="loginLink">Sign in here</Link>
+          </p>
+        )}
       </div>
     </div>
   )

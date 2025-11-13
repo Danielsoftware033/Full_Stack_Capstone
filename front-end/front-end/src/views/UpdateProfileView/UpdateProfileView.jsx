@@ -34,7 +34,7 @@ const UpdateProfileView = () => {
         )}
 
         <div id="updateProfileFormWrapper">
-          <UserForm submitFunction={handleSubmit} initialData={user} />
+          <UserForm submitFunction={handleSubmit} initialData={user} isUpdate={true} />
         </div>
       </div>
     </div>

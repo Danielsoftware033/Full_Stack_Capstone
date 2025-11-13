@@ -200,8 +200,7 @@ def delete_article(article_id):
 @articles_bp.route('/fetch', methods=['GET'])
 def fetch_articles():
 
-    # api_key = os.getenv("GNEWS_API_KEY")
-    api_key = '3874d035209a3cb9b3bcaade67a45222'
+    api_key = os.getenv("GNEWS_API_KEY")
 
 
     url = f'https://gnews.io/api/v4/top-headlines?category=nation&lang=en&country=us&max=50&apikey={api_key}'
@@ -251,7 +250,7 @@ def search_articles():
     if not query:
         return jsonify({"message": "Please provide a search query"}), 400
 
-    api_key = '3874d035209a3cb9b3bcaade67a45222'
+    api_key = os.getenv("GNEWS_API_KEY")
 
     url = f'https://gnews.io/api/v4/search?q={query}&lang=en&country=us&max=50&apikey={api_key}'
     response = requests.get(url)
@@ -334,7 +333,7 @@ def refresh_articles():
     db.session.commit()
 
     # 2) Fetch fresh articles from GNews in pages until we hit target_total
-    api_key = os.getenv('GNEWS_API_KEY') or '3874d035209a3cb9b3bcaade67a45222'
+    api_key = os.getenv('GNEWS_API_KEY') 
     inserted = 0
     seen_urls = set(r[0] for r in db.session.query(Articles.url).all())
 
