@@ -67,8 +67,8 @@ const HomeView = () => {
             <h2 className="categoryTitle">Left-Leaning</h2>
             <div className="articlesGrid">
               {topNews.filter(article => article.bias_category === "Left-Leaning")
-                .map((article, idx) => (
-                  <ArticleCard key={idx} article={article} onSave={saveArticle} />
+                .map((article) => (
+                  <ArticleCard key={article.id} article={article} onSave={saveArticle} />
                 ))}
             </div>
           </div>
@@ -77,8 +77,8 @@ const HomeView = () => {
             <h2 className="categoryTitle">Center</h2>
             <div className="articlesGrid">
               {topNews.filter(article => article.bias_category === "Center")
-                .map((article, idx) => (
-                  <ArticleCard key={idx} article={article} onSave={saveArticle} />
+                .map((article) => (
+                  <ArticleCard key={article.id} article={article} onSave={saveArticle} />
                 ))}
             </div>
           </div>
@@ -87,8 +87,8 @@ const HomeView = () => {
             <h2 className="categoryTitle">Right-Leaning</h2>
             <div className="articlesGrid">
               {topNews.filter(article => article.bias_category === "Right-Leaning")
-                .map((article, idx) => (
-                  <ArticleCard key={idx} article={article} onSave={saveArticle} />
+                .map((article) => (
+                  <ArticleCard key={article.id} article={article} onSave={saveArticle} />
                 ))}
             </div>
           </div>
@@ -96,8 +96,8 @@ const HomeView = () => {
       ) : (
         <div id="filteredView">
           <div className="articlesGrid">
-            {filteredArticles.map((article, idx) => (
-              <ArticleCard key={idx} article={article} onSave={saveArticle} />
+            {filteredArticles.map((article) => (
+              <ArticleCard key={article.id} article={article} onSave={saveArticle} />
             ))}
           </div>
         </div>
