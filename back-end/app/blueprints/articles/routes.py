@@ -197,7 +197,7 @@ def delete_article(article_id):
     return jsonify({"message": f"Successfully deleted article {article_id}"}), 200
 
 
-@articles_bp.route('/remove-duplicates', methods=['POST'])
+@articles_bp.route('/remove-duplicates', methods=['GET', 'POST'])
 def remove_duplicates():
     """Remove duplicate articles from database, keeping only the most recent one for each URL"""
     # Find all URLs that have duplicates
