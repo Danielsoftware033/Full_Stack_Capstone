@@ -202,7 +202,6 @@ def fetch_articles():
 
     api_key = os.getenv("GNEWS_API_KEY")
 
-
     url = f'https://gnews.io/api/v4/top-headlines?category=nation&lang=en&country=us&max=50&apikey={api_key}'
     response = requests.get(url)
 
