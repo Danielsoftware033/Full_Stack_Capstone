@@ -16,7 +16,7 @@ export const ArticlesProvider = ({ children }) => {
     const [articles, setArticles] = useState([]);
     const [savedArticles, setSavedArticles] = useState([]);
 
-    // Clear saved articles when user logs out (token becomes null)
+
     useEffect(() => {
         if (!token) {
             setSavedArticles([]);

@@ -1,0 +1,244 @@
+/* ==================== ARTICLE CARD ==================== */
+.articleCard {
+    background: #ffffff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.articleCard:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    transform: translateY(-4px);
+}
+
+/* ==================== CARD IMAGE ==================== */
+.cardImage {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    background-color: #f0f0f0;
+}
+
+.cardImage img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.articleCard:hover .cardImage img {
+    transform: scale(1.05);
+}
+
+/* ==================== BIAS LABEL ==================== */
+.biasLabel {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    padding: 6px 14px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-radius: 4px;
+    color: #ffffff;
+    background-color: #666666;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.biasLabel.LeftLeaning {
+    background-color: #1976d2;
+}
+
+.biasLabel.Center {
+    background-color: #7b1fa2;
+}
+
+.biasLabel.RightLeaning {
+    background-color: #d32f2f;
+}
+
+/* ==================== CARD CONTENT ==================== */
+.cardContent {
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.cardTitle {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin: 0 0 0.75rem 0;
+    color: #1a1a1a;
+    line-height: 1.4;
+    font-family: 'Georgia', 'Times New Roman', serif;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.cardDescription {
+    font-size: 0.9rem;
+    color: #555555;
+    line-height: 1.5;
+    margin: 0 0 1rem 0;
+    flex: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* ==================== CARD FOOTER ==================== */
+.cardFooter {
+    margin-top: auto;
+    padding-top: 1rem;
+    border-top: 1px solid #e0e0e0;
+}
+
+.cardSource {
+    font-size: 0.9rem;
+    color: #014d0b;
+    margin: 0 0 1rem 0;
+}
+
+.sourceLabel {
+    font-weight: 600;
+    color: #1e2a8f;
+}
+
+/* ==================== CARD ACTIONS ==================== */
+.cardActions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.readMoreBtn {
+    flex: 1;
+    min-width: 100px;
+    padding: 10px 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #ffffff;
+    background-color: #1e2a8f;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.readMoreBtn:hover {
+    background-color: #2c3e9e;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(30, 42, 143, 0.3);
+}
+
+.actionBtn {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border: 2px solid transparent;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.saveBtn {
+    color: #1e7e34;
+    background-color: #ffffff;
+    border-color: #1e7e34;
+    font-size: .7rem;
+}
+
+.saveBtn:hover {
+    color: #ffffff;
+    background-color: #1e7e34;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(30, 126, 52, 0.3);
+}
+
+.removeBtn {
+    color: #d32f2f;
+    background-color: #ffffff;
+    border-color: #d32f2f;
+}
+
+.removeBtn:hover {
+    color: #ffffff;
+    background-color: #d32f2f;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(211, 47, 47, 0.3);
+}
+
+/* ==================== RESPONSIVE DESIGN ==================== */
+@media (max-width: 768px) {
+    .cardImage {
+        height: 180px;
+    }
+
+    .cardTitle {
+        font-size: 1rem;
+    }
+
+    .cardDescription {
+        font-size: 0.85rem;
+    }
+
+    .cardActions {
+        flex-direction: column;
+    }
+
+    .readMoreBtn,
+    .actionBtn {
+        width: 100%;
+    }
+}
+
+@media (max-width: 576px) {
+    .cardImage {
+        height: 160px;
+    }
+
+    .cardContent {
+        padding: 1rem;
+    }
+
+    .cardTitle {
+        font-size: 0.95rem;
+    }
+
+    .biasLabel {
+        font-size: 0.7rem;
+        padding: 5px 10px;
+    }
+}
+
+/* ==================== ACCESSIBILITY ==================== */
+.readMoreBtn:focus,
+.actionBtn:focus {
+    outline: 2px solid #1e2a8f;
+    outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .articleCard,
+    .cardImage img,
+    .readMoreBtn,
+    .actionBtn {
+        transition: none;
+    }
+}

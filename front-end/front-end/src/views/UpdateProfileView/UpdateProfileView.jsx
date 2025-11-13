@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNews } from "../../contexts/NewsContext";
 import UserForm from "../../components/UserForm/UserForm";
+import "./UpdateProfileView.css";
 
 const UpdateProfileView = () => {
   const { user, updateUser } = useNews();
@@ -16,13 +17,26 @@ const UpdateProfileView = () => {
     }
   };
 
+  const isSuccess = message.toLowerCase().includes("success");
+
   return (
-    <div>
-      <h1>Update Profile</h1>
+    <div id="updateProfileView">
+      <div id="updateProfileCard">
+        <div id="updateProfileHeader">
+          <h2 id="updateProfileTitle">Update Profile</h2>
+          <p id="updateProfileSubtitle">Keep your information up to date.</p>
+        </div>
 
-      {message && <p>{message}</p>}
+        {message && (
+          <div className={`updateMessage ${isSuccess ? "success" : "error"}`}>
+            {message}
+          </div>
+        )}
 
-      <UserForm submitFunction={handleSubmit} initialData={user}/>
+        <div id="updateProfileFormWrapper">
+          <UserForm submitFunction={handleSubmit} initialData={user} />
+        </div>
+      </div>
     </div>
   );
 };

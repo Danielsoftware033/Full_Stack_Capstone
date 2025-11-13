@@ -1,112 +1,32 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
-// import { useAuth } from '../../contexts/AuthContext'
-
-// const NavBar = () => {
-//   const { token } = useAuth() 
-
-//   return (
-//     <header>
-//       <h1>BiasTwin</h1>
-//       <nav>
-//         <ul>
-//           <li>
-//             <NavLink to="/">HOME</NavLink>
-//           </li>
-//           <li>
-//             <NavLink to="/search">SEARCH</NavLink>
-//           </li>
-//           <li>
-//             <NavLink to="/forum">FORUM</NavLink>
-//           </li>
-//           {!token && (
-//             <>
-//               <li>
-//                 <NavLink to="/login">LOGIN</NavLink>
-//               </li>
-//               <li>
-//                 <NavLink to="/signup">SIGN UP</NavLink>
-//               </li>
-//             </>
-//           )}
-//           {token && (
-//             <li>
-//               <NavLink to="/saved">SAVED</NavLink>
-//             </li>
-//           )}
-//         </ul>
-//       </nav>
-//     </header>
-//   )
-// }
-
-// export default NavBar
-
-
-// const NavBar = () => {
-//   return (
-//     <header>
-//       <h1>BiasTwin</h1>
-//       <nav>
-//         <ul>
-//           <li>
-//             <NavLink to="/">HOME</NavLink>
-//           </li>
-//           <li>
-//             <NavLink to="/search">SEARCH</NavLink>
-//           </li>
-//           <li>
-//             <NavLink to="/forum">FORUM</NavLink>
-//           </li>
-//           <li>
-//             <NavLink to="/login">LOGIN</NavLink>
-//           </li>
-//           <li>
-//             <NavLink to="/signup">SIGN UP</NavLink>
-//           </li>
-//           <li>
-//             <NavLink to="/saved">SAVED</NavLink>
-//           </li>
-//         </ul>
-//       </nav>
-//     </header>
-//   );
-// };
-
-// export default NavBar;
-
+import { useNews } from '../../contexts/NewsContext'
+import './NavBar.css'
 
 const NavBar = () => {
+  const { token } = useNews();
   return (
-    <header style={{ 
-      backgroundColor: "#6b3131ff", 
-      color: "white", 
-      padding: "12px 24px",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "space-between"
-    }}>
-      <h1 style={{ margin: 0 }}>BiasTwin</h1>
+    <>
+      <div id="navBar">
+        <NavLink className={'navLink'} id="logo" to='/'>
+          BiasTwin<span id="newsLabel">NEWS</span>
+        </NavLink>
 
-      <nav>
-        <ul style={{ 
-          listStyle: "none", 
-          display: "flex", 
-          gap: "20px", 
-          margin: 0, 
-          padding: 0 
-        }}>
-          <li><NavLink style={{ color: "white", textDecoration: "none" }} to="/">HOME</NavLink></li>
-          <li><NavLink style={{ color: "white", textDecoration: "none" }} to="/search">SEARCH</NavLink></li>
-          <li><NavLink style={{ color: "white", textDecoration: "none" }} to="/forum">FORUM</NavLink></li>
-          <li><NavLink style={{ color: "white", textDecoration: "none" }} to="/saved">SAVED</NavLink></li>
-          <li><NavLink style={{ color: "white", textDecoration: "none" }} to="/login">LOGIN</NavLink></li>
-          <li><NavLink style={{ color: "white", textDecoration: "none" }} to="/signup">SIGN UP</NavLink></li>
-          <li><NavLink style={{ color: "white", textDecoration: "none" }} to="/profile">PROFILE</NavLink></li>
-        </ul>
-      </nav>
-    </header>
-  );
-};
+        <div id="navLinks">
+          <NavLink className={'navLink'} to='/'>HOME</NavLink>
+          <NavLink className={'navLink'} to='/search'>SEARCH</NavLink>
+          <NavLink className={'navLink'} to='/forum'>FORUM</NavLink>
+          <NavLink className={'navLink'} to='/saved'>SAVED</NavLink>
+          <NavLink className={'navLink'} to='/login'>LOGIN</NavLink>
+          <NavLink className={'navLink'} id="signupBtn" to='/signup'>SIGN UP</NavLink>
+          {token && 
+            <NavLink className={'navLink'} to='/profile'>PROFILE</NavLink>
+          }
+        </div>
+      </div>
+      <hr id="navDivider" />
+    </>
+  )
+}
 
-export default NavBar;
+export default NavBar

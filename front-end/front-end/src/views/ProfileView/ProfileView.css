@@ -1,0 +1,321 @@
+/* ==================== MAIN CONTAINER ==================== */
+#profileView {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 3%;
+  background: linear-gradient(to bottom, #f0f2f7 0%, #f8f9fa 100%);
+  min-height: 100vh;
+}
+
+/* ==================== EMPTY STATE ==================== */
+#emptyState {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  padding: 3rem 2rem;
+  text-align: center;
+}
+
+#emptyTitle {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.75rem;
+  font-weight: 700;
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: #1a1a1a;
+}
+
+#emptyMessage { margin: 0; font-size: 1rem; color: #666666; }
+
+/* ==================== CONTAINER ==================== */
+#profileContainer {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  overflow: hidden;
+}
+
+/* ==================== BANNER ==================== */
+#profileBanner {
+  background: linear-gradient(135deg, #1e2a8f 0%, #2d3fb8 100%);
+  padding: 2rem 2rem 1.75rem 2rem;
+  color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+#bannerContent {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+#avatarLarge {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.2);
+  border: 3px solid rgba(255,255,255,0.3);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 1.75rem;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+#bannerInfo { display: flex; flex-direction: column; gap: 0.25rem; }
+
+#userName {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 700;
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: #ffffff;
+  line-height: 1.2;
+}
+
+#userEmail { margin: 0; font-size: 1rem; color: rgba(255,255,255,0.85); }
+
+#bannerActions { display: flex; gap: 10px; flex-wrap: wrap; }
+
+.bannerBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 38px;
+  padding: 0 18px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: rgba(255,255,255,0.1);
+  color: #ffffff;
+  backdrop-filter: blur(10px);
+}
+
+.bannerBtn:hover {
+  background: rgba(255,255,255,0.2);
+  border-color: rgba(255,255,255,0.5);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.primaryBtn {
+  background: #ffffff;
+  color: #1e2a8f;
+  border-color: #ffffff;
+}
+
+.primaryBtn:hover {
+  background: #f0f2f7;
+  color: #1e2a8f;
+  border-color: #f0f2f7;
+}
+
+/* ==================== CONTENT LAYOUT ==================== */
+#profileContent {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 1.5rem;
+  padding: 1.5rem;
+}
+
+#mainColumn { display: flex; flex-direction: column; gap: 1.5rem; }
+#sideColumn { display: flex; flex-direction: column; gap: 1.5rem; }
+
+/* ==================== INFO CARDS ==================== */
+.infoCard {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.cardHeader {
+  padding: 1rem 1.25rem;
+  background: #f9fafb;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.cardTitle {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: #1a1a1a;
+}
+
+.cardBody { padding: 1.25rem; }
+
+/* ==================== INFO GRID ==================== */
+.infoGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+}
+
+.infoItem { display: flex; flex-direction: column; gap: 0.35rem; }
+
+.infoLabel {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #6b7280;
+}
+
+.infoValue {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #1a1a1a;
+}
+
+/* ==================== SETTINGS ==================== */
+.settingItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.settingItem:last-child { border-bottom: none; }
+
+.settingInfo { display: flex; flex-direction: column; gap: 0.25rem; }
+
+.settingName {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.settingDescription {
+  font-size: 0.85rem;
+  color: #6b7280;
+}
+
+.dangerZone {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-top: 0.5rem;
+}
+
+.dangerZone .settingName { color: #b91a1a; }
+
+.dangerBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+  padding: 0 16px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #ffffff !important;
+  background: #dc2626 !important;
+  border: 2px solid #dc2626;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.dangerBtn:hover {
+  background: #b91c1c;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(220,38,38,0.25);
+}
+
+/* ==================== STATS ==================== */
+.statsCard .cardBody { padding: 1rem; }
+
+.statItem {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: linear-gradient(135deg, #f0f2f7 0%, #f8f9fa 100%);
+  border-radius: 8px;
+}
+
+.statIcon { font-size: 2rem; }
+
+.statDetails { display: flex; flex-direction: column; gap: 0.25rem; }
+
+.statValue {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #1e2a8f;
+  line-height: 1;
+}
+
+.statName {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 968px) {
+  #profileContent {
+    grid-template-columns: 1fr;
+  }
+  
+  #sideColumn { order: -1; }
+}
+
+@media (max-width: 768px) {
+  #profileBanner {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1.5rem;
+  }
+  
+  #userName { font-size: 1.5rem; }
+  
+  #avatarLarge {
+    width: 64px;
+    height: 64px;
+    font-size: 1.4rem;
+  }
+  
+  #bannerActions {
+    width: 100%;
+    justify-content: stretch;
+  }
+  
+  .bannerBtn { flex: 1; }
+  
+  .infoGrid { grid-template-columns: 1fr; gap: 1rem; }
+  
+  #profileContent { padding: 1rem; gap: 1rem; }
+}
+
+/* ==================== ACCESSIBILITY ==================== */
+.bannerBtn:focus,
+.dangerBtn:focus {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bannerBtn,
+  .dangerBtn {
+    transition: none;
+  }
+  
+  .bannerBtn:hover,
+  .dangerBtn:hover {
+    transform: none;
+  }
+}

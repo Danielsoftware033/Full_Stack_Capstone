@@ -1,0 +1,310 @@
+/* ==================== MAIN CONTAINER ==================== */
+#forumView {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 3%;
+    background-color: #f8f9fa;
+    min-height: 100vh;
+}
+
+/* ==================== HEADER ==================== */
+#forumHeader {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    padding: 2rem 0;
+    background: linear-gradient(135deg, #1e2a8f 0%, #2c3e9e 100%);
+    border-radius: 8px;
+    color: white;
+    box-shadow: 0 4px 12px rgba(30, 42, 143, 0.2);
+}
+
+#forumTitle {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 0 0 0.5rem 0;
+    font-family: 'Georgia', 'Times New Roman', serif;
+    letter-spacing: -0.5px;
+}
+
+#forumSubtitle {
+    font-size: 1.1rem;
+    margin: 0;
+    opacity: 0.9;
+    font-weight: 400;
+}
+
+/* ==================== FORUM CONTROLS ==================== */
+#forumControls {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 1.75rem;
+    flex-wrap: wrap;
+}
+
+#forumSearchForm {
+    flex: 1;
+    display: flex;
+    gap: 8px;
+    min-width: 300px;
+}
+
+.forumSearchInput {
+    flex: 1;
+    padding: 10px 14px;
+    font-size: 0.95rem;
+    border: 2px solid #d0d0d0;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.forumSearchInput:focus {
+    outline: none;
+    border-color: #1e2a8f;
+    box-shadow: 0 0 0 3px rgba(30, 42, 143, 0.1);
+}
+
+.forumSearchInput::placeholder {
+    color: #999999;
+}
+
+.forumSearchBtn {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #ffffff;
+    background-color: #1e2a8f;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.forumSearchBtn:hover {
+    background-color: #2c3e9e;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(30, 42, 143, 0.3);
+}
+
+#createTopicBtn {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #ffffff;
+    background-color: #1e7e34;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+#createTopicBtn:hover {
+    background-color: #28a745;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(30, 126, 52, 0.3);
+}
+
+/* ==================== TOPICS LIST ==================== */
+#topicsList {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.topicCard {
+    background: #ffffff;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-left: 4px solid #1e2a8f;
+}
+
+.topicCard:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    transform: translateX(4px);
+    border-left-color: #2c3e9e;
+}
+
+.topicTitle {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin: 0 0 0.75rem 0;
+    color: #1a1a1a;
+    font-family: 'Georgia', 'Times New Roman', serif;
+    line-height: 1.4;
+}
+
+.topicMeta {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    font-size: 0.9rem;
+    color: #666666;
+    flex-wrap: wrap;
+}
+
+.topicAuthor {
+    font-weight: 600;
+    color: #1e2a8f;
+}
+
+.topicAuthor::before {
+    content: "👤 ";
+    margin-right: 4px;
+}
+
+.topicDate {
+    color: #777777;
+}
+
+.topicDate::before {
+    content: "📅 ";
+    margin-right: 4px;
+}
+
+/* ==================== NO TOPICS MESSAGE ==================== */
+.noTopics {
+    text-align: center;
+    font-size: 1.1rem;
+    color: #666666;
+    padding: 3rem;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+/* ==================== RESPONSIVE DESIGN ==================== */
+@media (max-width: 992px) {
+    #forumView {
+        padding: 1.5rem 2%;
+    }
+
+    #forumTitle {
+        font-size: 2rem;
+    }
+
+    #forumSubtitle {
+        font-size: 1rem;
+    }
+
+    .topicTitle {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    #forumView {
+        padding: 1rem 2%;
+    }
+
+    #forumHeader {
+        padding: 1.5rem 1rem;
+        margin-bottom: 2rem;
+    }
+
+    #forumTitle {
+        font-size: 1.75rem;
+    }
+
+    #forumSubtitle {
+        font-size: 0.95rem;
+    }
+
+    #forumControls {
+        flex-direction: column;
+    }
+
+    #forumSearchForm {
+        min-width: 100%;
+    }
+
+    .forumSearchBtn,
+    #createTopicBtn {
+        width: 100%;
+    }
+
+    .topicCard {
+        padding: 1.25rem;
+    }
+
+    .topicTitle {
+        font-size: 1.1rem;
+    }
+
+    .topicMeta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+}
+
+@media (max-width: 576px) {
+    #forumView {
+        padding: 1rem 3%;
+    }
+
+    #forumHeader {
+        padding: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    #forumTitle {
+        font-size: 1.5rem;
+    }
+
+    #forumSubtitle {
+        font-size: 0.9rem;
+    }
+
+    #forumSearchForm {
+        flex-direction: column;
+    }
+
+    .forumSearchInput {
+        padding: 10px 16px;
+        font-size: 0.95rem;
+    }
+
+    .forumSearchBtn {
+        padding: 10px 24px;
+        font-size: 0.9rem;
+    }
+
+    #createTopicBtn {
+        padding: 10px 24px;
+        font-size: 0.9rem;
+    }
+
+    .topicCard {
+        padding: 1rem;
+    }
+
+    .topicTitle {
+        font-size: 1rem;
+    }
+}
+
+/* ==================== ACCESSIBILITY ==================== */
+.forumSearchInput:focus,
+.forumSearchBtn:focus,
+#createTopicBtn:focus {
+    outline: 2px solid #1e2a8f;
+    outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .topicCard,
+    .forumSearchBtn,
+    #createTopicBtn,
+    .forumSearchInput {
+        transition: none;
+    }
+}

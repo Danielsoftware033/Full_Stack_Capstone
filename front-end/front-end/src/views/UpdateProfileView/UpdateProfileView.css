@@ -1,0 +1,48 @@
+/* ==================== MAIN CONTAINER ==================== */
+#updateProfileView {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 3%;
+  background-color: #f8f9fa;
+  min-height: 100vh;
+}
+
+/* ==================== CARD ==================== */
+#updateProfileCard {
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  overflow: hidden;
+}
+
+#updateProfileHeader {
+  padding: 1.25rem 1.5rem 1rem 1.5rem;
+  border-bottom: 3px solid #1e2a8f;
+}
+
+#updateProfileTitle {
+  margin: 0 0 0.25rem 0;
+  font-size: 1.75rem;
+  font-weight: 700;
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: #1a1a1a;
+}
+
+#updateProfileSubtitle { margin: 0; font-size: 0.95rem; color: #666666; }
+
+/* ==================== MESSAGE ==================== */
+.updateMessage {
+  margin: 1rem 1.5rem 0 1.5rem;
+  padding: 10px 12px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+.updateMessage.success { color: #0f5132; background-color: #d1e7dd; border: 1px solid #badbcc; }
+.updateMessage.error { color: #842029; background-color: #f8d7da; border: 1px solid #f5c2c7; }
+
+/* ==================== FORM WRAPPER ==================== */
+#updateProfileFormWrapper {
+  padding: 1rem 1.5rem 1.5rem 1.5rem;
+}
+
+/* Reuse input/button styles from UserForm.css */

@@ -1,0 +1,175 @@
+/* ==================== MAIN CONTAINER ==================== */
+#savedView {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem 3%;
+  background: linear-gradient(to bottom, #f0f2f7 0%, #f8f9fa 100%);
+  min-height: 100vh;
+}
+
+/* ==================== CONTAINER ==================== */
+#savedContainer {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  overflow: hidden;
+}
+
+/* ==================== HEADER ==================== */
+#savedHeader {
+  background: linear-gradient(135deg, #1e2a8f 0%, #2d3fb8 100%);
+  padding: 2rem 2rem 1.75rem 2rem;
+  color: #ffffff;
+}
+
+#savedTitle {
+  margin: 0 0 0.5rem 0;
+  font-size: 2rem;
+  font-weight: 700;
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: #ffffff;
+  line-height: 1.2;
+}
+
+#savedSubtitle {
+  margin: 0;
+  font-size: 1rem;
+  color: rgba(255,255,255,0.85);
+}
+
+/* ==================== FILTER SECTION ==================== */
+#filterSection {
+  padding: 1.5rem 2rem;
+  background: #f9fafb;
+  border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+#filterLabel {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #374151;
+}
+
+#filterButtons {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.filterBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+  padding: 0 16px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #4b5563;
+  background: #ffffff;
+  border: 2px solid #d1d5db;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filterBtn:hover {
+  background: #f3f4f6;
+  border-color: #9ca3af;
+}
+
+.filterBtn.active {
+  background: #1e2a8f;
+  color: #ffffff;
+  border-color: #1e2a8f;
+  box-shadow: 0 2px 4px rgba(30,42,143,0.25);
+}
+
+/* ==================== ARTICLES GRID ==================== */
+#articlesGrid {
+  padding: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+
+/* ==================== EMPTY STATE ==================== */
+#emptyState {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 3rem 2rem;
+}
+
+#emptyMessage {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #374151;
+}
+
+#emptyHint {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #6b7280;
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 768px) {
+  #savedTitle {
+    font-size: 1.5rem;
+  }
+  
+  #savedHeader {
+    padding: 1.5rem;
+  }
+  
+  #filterSection {
+    padding: 1rem 1.5rem;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  #filterButtons {
+    width: 100%;
+  }
+  
+  .filterBtn {
+    flex: 1;
+    min-width: 100px;
+  }
+  
+  #articlesGrid {
+    padding: 1.5rem;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  #savedView {
+    padding: 1rem 2%;
+  }
+  
+  #filterButtons {
+    flex-direction: column;
+  }
+  
+  .filterBtn {
+    width: 100%;
+  }
+}
+
+/* ==================== ACCESSIBILITY ==================== */
+.filterBtn:focus {
+  outline: 2px solid #1e2a8f;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .filterBtn {
+    transition: none;
+  }
+}

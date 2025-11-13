@@ -1,0 +1,249 @@
+/* ==================== MAIN CONTAINER ==================== */
+#homeView {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem 3%;
+    background-color: #f8f9fa;
+    min-height: 100vh;
+}
+
+/* ==================== HEADER ==================== */
+#homeHeader {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    padding: 2rem 0;
+    background: linear-gradient(135deg, #1e2a8f 0%, #2c3e9e 100%);
+    border-radius: 8px;
+    color: white;
+    box-shadow: 0 4px 12px rgba(30, 42, 143, 0.2);
+}
+
+#homeTitle {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 0 0 0.5rem 0;
+    font-family: 'Georgia', 'Times New Roman', serif;
+    letter-spacing: -0.5px;
+}
+
+#homeSubtitle {
+    font-size: 1.1rem;
+    margin: 0 0 0.75rem 0;
+    opacity: 0.9;
+    font-weight: 400;
+}
+
+#biasDisclaimer {
+    font-size: 0.9rem;
+    margin: 0;
+    opacity: 0.85;
+    font-weight: 300;
+    font-style: italic;
+}
+
+#biasDisclaimer a {
+    color: #ffffff;
+    text-decoration: underline;
+    font-weight: 400;
+    transition: opacity 0.2s ease;
+}
+
+#biasDisclaimer a:hover {
+    opacity: 0.8;
+}
+
+/* ==================== FILTER BUTTONS ==================== */
+#filterButtons {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+}
+
+.filterBtn {
+    padding: 12px 28px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border: 2px solid #1e2a8f;
+    background-color: #ffffff;
+    color: #1e2a8f;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.filterBtn:hover {
+    background-color: #1e2a8f;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(30, 42, 143, 0.3);
+}
+
+.filterBtn.active {
+    background-color: #1e2a8f;
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(30, 42, 143, 0.3);
+}
+
+/* ==================== CATEGORY SECTIONS ==================== */
+#categorizedView {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
+
+.categorySection {
+    background: #ffffff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.categoryTitle {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin: 0 0 1.5rem 0;
+    color: #1a1a1a;
+    font-family: 'Georgia', 'Times New Roman', serif;
+    padding-bottom: 0.75rem;
+    border-bottom: 3px solid #1e2a8f;
+}
+
+/* ==================== ARTICLES GRID ==================== */
+.articlesGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+}
+
+/* ==================== FILTERED VIEW ==================== */
+#filteredView {
+    background: #ffffff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* ==================== RESPONSIVE DESIGN ==================== */
+@media (max-width: 992px) {
+    #homeView {
+        padding: 1.5rem 2%;
+    }
+
+    #homeTitle {
+        font-size: 2rem;
+    }
+
+    #homeSubtitle {
+        font-size: 1rem;
+    }
+
+    .categoryTitle {
+        font-size: 1.5rem;
+    }
+
+    .articlesGrid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 1.25rem;
+    }
+}
+
+@media (max-width: 768px) {
+    #homeView {
+        padding: 1rem 2%;
+    }
+
+    #homeHeader {
+        padding: 1.5rem 1rem;
+        margin-bottom: 2rem;
+    }
+
+    #homeTitle {
+        font-size: 1.75rem;
+    }
+
+    #homeSubtitle {
+        font-size: 0.95rem;
+    }
+
+    #filterButtons {
+        gap: 8px;
+        margin-bottom: 2rem;
+    }
+
+    .filterBtn {
+        padding: 10px 20px;
+        font-size: 0.85rem;
+    }
+
+    .categorySection {
+        padding: 1.5rem;
+    }
+
+    .categoryTitle {
+        font-size: 1.4rem;
+    }
+
+    .articlesGrid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    #filteredView {
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 576px) {
+    #homeView {
+        padding: 1rem 3%;
+    }
+
+    #homeHeader {
+        padding: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    #homeTitle {
+        font-size: 1.5rem;
+    }
+
+    #homeSubtitle {
+        font-size: 0.9rem;
+    }
+
+    .filterBtn {
+        padding: 8px 16px;
+        font-size: 0.8rem;
+    }
+
+    .categorySection {
+        padding: 1rem;
+    }
+
+    .categoryTitle {
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+    }
+
+    #filteredView {
+        padding: 1rem;
+    }
+}
+
+/* ==================== ACCESSIBILITY ==================== */
+.filterBtn:focus {
+    outline: 2px solid #1e2a8f;
+    outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .filterBtn,
+    .categorySection {
+        transition: none;
+    }
+}

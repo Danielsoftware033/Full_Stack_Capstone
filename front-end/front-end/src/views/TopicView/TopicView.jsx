@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useForums } from "../../contexts/ForumsContext";
 import { useNews } from "../../contexts/NewsContext";
+import './TopicView.css';
 
 
 const TopicPage = () => {
@@ -119,88 +120,105 @@ const TopicPage = () => {
 
 
   return (
-    <div>
+    <div id="topicView">
 
       {topic && (
-        <div>
-          <h2>{topic.title}</h2>
-          {isEditingTopic ? (
-          <div>
-            <textarea
-              value={editedTopicContent}
-              onChange={(e) => setEditedTopicContent(e.target.value)}
-            />
-            <button onClick={handleSaveTopicEdit}>Save</button>
-            <button onClick={() => setIsEditingTopic(false)}>Cancel</button>
-          </div>
-        ) : (
-        <>
-          <p>{topic.content}</p>
-          <p>
-            {topic.user?.username || "Anonymous"} |{" "}
-            {new Date(topic.created_at).toLocaleString()}
-          </p>
-
-          {token && user?.id === topic.user?.id && (
-            <div>
-              <button onClick={() => {
-                setEditedTopicContent(topic.content);
-                setIsEditingTopic(true);
-              }}>Edit Topic</button>
-              <button onClick={handleDeleteTopic}>Delete Topic</button>
+        <div id="topicContainer">
+          <div id="topicHeader">
+            <h2 id="topicTitle">{topic.title}</h2>
+            <div id="topicMeta">
+              <span className="topicAuthor">{topic.user?.username || "Anonymous"}</span>
+              <span className="topicDate">{new Date(topic.created_at).toLocaleString()}</span>
             </div>
-          )}
-        </>
-      )}
+          </div>
+
+          <div id="topicBody">
+            {isEditingTopic ? (
+              <div id="editTopicForm">
+                <textarea
+                  className="topicTextarea"
+                  value={editedTopicContent}
+                  onChange={(e) => setEditedTopicContent(e.target.value)}
+                />
+                <div className="topicActions">
+                  <button className="actionBtn saveBtn" onClick={handleSaveTopicEdit}>Save</button>
+                  <button className="actionBtn secondaryBtn" onClick={() => setIsEditingTopic(false)}>Cancel</button>
+                </div>
+              </div>
+            ) : (
+              <>
+                <p id="topicContent">{topic.content}</p>
+
+                {token && user?.id === topic.user?.id && (
+                  <div className="topicActions">
+                    <button
+                      className="actionBtn"
+                      onClick={() => {
+                        setEditedTopicContent(topic.content);
+                        setIsEditingTopic(true);
+                      }}
+                    >
+                      Edit Topic
+                    </button>
+                    <button className="actionBtn dangerBtn" onClick={handleDeleteTopic}>Delete Topic</button>
+                  </div>
+                )}
+              </>
+            )}
+          </div>
         </div>
       )}
 
-
-      <div>
-        <h3>Posts</h3>
+      <div id="postsSection">
+        <h3 id="postsTitle">Posts</h3>
         {posts.length > 0 ? (
-          posts.map((post, idx) => (
-            <div key={post.id ?? post._id}>   
-              <p>{post.user?.username || "Anonymous"}</p>
+          <div id="postsList">
+            {posts.map((post) => (
+              <div key={post.id ?? post._id} className="postCard">
+                <div className="postMeta">
+                  <span className="postAuthor">{post.user?.username || "Anonymous"}</span>
+                  <span className="postDate">{new Date(post.created_at).toLocaleString()}</span>
+                </div>
 
-              {editingPostId === post.id ? (
-                <div>
-                  <textarea
-                    value={editedPostContent}
-                    onChange={(e) => setEditedPostContent(e.target.value)}
+                {editingPostId === post.id ? (
+                  <div className="editPostForm">
+                    <textarea
+                      className="postTextarea"
+                      value={editedPostContent}
+                      onChange={(e) => setEditedPostContent(e.target.value)}
                     />
-                  <button onClick={() => handleSavePost(post.id)}>Save</button>
-                  <button onClick={() => setEditingPostId(null)}>Cancel</button>
-                </div>
-              ) : (
-                <p>{post.content}</p>
-              )}
+                    <div className="postActions">
+                      <button className="actionBtn saveBtn" onClick={() => handleSavePost(post.id)}>Save</button>
+                      <button className="actionBtn secondaryBtn" onClick={() => setEditingPostId(null)}>Cancel</button>
+                    </div>
+                  </div>
+                ) : (
+                  <p className="postContent">{post.content}</p>
+                )}
 
-              <p>{new Date(post.created_at).toLocaleString()}</p>
-
-
-              {token && user?.id === post.user?.id && (
-                <div>
-                  <button onClick={() => handleEditPost(post.id, post.content)}>Edit</button>
-                  <button onClick={() => handleDeletePost(post.id)}>Delete</button>
-                </div>
-              )}
-            </div>
-          ))
+                {token && user?.id === post.user?.id && (
+                  <div className="postActions">
+                    <button className="actionBtn" onClick={() => handleEditPost(post.id, post.content)}>Edit</button>
+                    <button className="actionBtn dangerBtn" onClick={() => handleDeletePost(post.id)}>Delete</button>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
         ) : (
-          <p>No posts yet.</p>
+          <p className="noPosts">No posts yet.</p>
         )}
       </div>
 
-
       {token && (
-        <form onSubmit={(e) => handleCreatePost(e)}>
+        <form id="newPostForm" onSubmit={(e) => handleCreatePost(e)}>
           <textarea
+            className="postTextarea"
             placeholder="Write your post here..."
             value={newPostContent}
             onChange={(e) => setNewPostContent(e.target.value)}
           />
-          <button type="submit">Add Post</button>
+          <button type="submit" className="actionBtn saveBtn">Add Post</button>
         </form>
       )}
     </div>

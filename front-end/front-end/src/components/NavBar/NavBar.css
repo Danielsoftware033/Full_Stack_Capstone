@@ -1,0 +1,184 @@
+/* ==================== NAVBAR CONTAINER ==================== */
+#navBar {
+    height: 75px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2%;
+    background: #1e2a8f;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-sizing: border-box;
+}
+
+/* ==================== LOGO ==================== */
+#logo {
+    font-size: 1.66rem;
+    font-weight: 700;
+    color: #f4f7f4 !important;
+    letter-spacing: -0.5px;
+    font-family: "Garamond", serif;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    flex-shrink: 0;
+}
+
+#logo:hover {
+    color: #d32f2f !important;
+}
+
+#newsLabel {
+    font-size: 0.65rem;
+    margin-left: 6px;
+    color: #d32f2f;
+    font-weight: 700;
+    vertical-align: super;
+    letter-spacing: 2px;
+}
+
+/* ==================== NAV LINKS CONTAINER ==================== */
+#navLinks {
+    display: flex;
+    gap: 0;
+    align-items: center;
+}
+
+
+.navLink {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    padding: 24px 10px;
+    transition: all 0.25s ease;
+    font-family: Garamond, serif;
+    text-transform: uppercase;
+    position: relative;
+}
+
+.navLink:hover {
+    color: #d32f2f;
+}
+
+/* Active State */
+.navLink.active {
+    color: #d32f2f;
+    font-weight: 600;
+}
+
+/* ==================== SIGN UP BUTTON ==================== */
+#signupBtn {
+    background-color: #d32f2f;
+    color: #ffffff !important;
+    font-weight: 600;
+    margin-left: 8px;
+    padding: 8px 18px;
+    border-radius: 4px;
+}
+
+#signupBtn:hover {
+    background-color: #b71c1c;
+    border-bottom-color: transparent;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(211, 47, 47, 0.3);
+}
+
+#signupBtn.active {
+    background-color: #b71c1c;
+}
+
+/* ==================== DIVIDER ==================== */
+#navDivider {
+    display: none;
+}
+
+/* ==================== RESPONSIVE DESIGN ==================== */
+@media (max-width: 992px) {
+    #navBar {
+        height: 65px;
+        padding: 0 3%;
+    }
+
+    #logo {
+        font-size: 1.6rem;
+    }
+
+    .navLink {
+        font-size: 0.8rem;
+        padding: 22px 16px;
+    }
+
+    #signupBtn {
+        padding: 8px 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    #navBar {
+        height: 60px;
+        padding: 0 2%;
+    }
+
+    #logo {
+        font-size: 1.4rem;
+    }
+
+    #newsLabel {
+        font-size: 0.6rem;
+    }
+
+    .navLink {
+        font-size: 0.75rem;
+        padding: 20px 12px;
+    }
+
+    #signupBtn {
+        padding: 8px 16px;
+        margin-left: 8px;
+    }
+}
+
+@media (max-width: 576px) {
+    #navBar {
+        height: auto;
+        flex-direction: column;
+        padding: 16px 2%;
+        gap: 12px;
+    }
+
+    #logo {
+        font-size: 1.3rem;
+    }
+
+    #navLinks {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .navLink {
+        font-size: 0.7rem;
+        padding: 12px 10px;
+    }
+
+    #signupBtn {
+        margin-left: 0;
+    }
+}
+
+/* ==================== ACCESSIBILITY ==================== */
+.navLink:focus,
+#logo:focus {
+    outline: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .navLink,
+    #logo,
+    #signupBtn {
+        transition: none;
+    }
+}

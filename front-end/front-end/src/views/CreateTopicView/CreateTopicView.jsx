@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useForums } from "../../contexts/ForumsContext";
 import { useNavigate } from "react-router-dom";
 import { useNews } from "../../contexts/NewsContext";
+import "./CreateTopicView.css";
 
 const CreateTopicPage = () => {
   const { createTopic } = useForums();
@@ -15,14 +16,14 @@ const CreateTopicPage = () => {
     e.preventDefault();
 
     if (!title.trim() || !content.trim()) {
-      alert("Please fill in both title and content.");  //copilot suggestion for alert popup window and error handling
+      alert("Please fill in both title and content.");
       return;
     }
 
     if (!token) {
-          alert("You need to be logged in to create a topic.");
-          return;
-        }
+      alert("You need to be logged in to create a topic.");
+      return;
+    }
 
     const newTopic = await createTopic({ title, content });
 
@@ -34,26 +35,44 @@ const CreateTopicPage = () => {
   };
 
   return (
-    <div>
-      <h2>Create a New Topic</h2>
-      <form onSubmit={(e) => handleSubmit(e)}>
-        <div>
-          <label>Title:</label><br/>
-          <input 
-            type="text" 
-            value={title} 
-            onChange={(e) => setTitle(e.target.value)} 
-          />
+    <div id="createTopicView">
+      <div id="createTopicCard">
+        <div id="createTopicHeader">
+          <h2 id="createTopicTitle">Create a New Topic</h2>
+          <p id="createTopicSubtitle">Start a discussion with a clear title and a thoughtful prompt.</p>
         </div>
-        <div>
-          <label>Content:</label><br/>
-          <textarea 
-            value={content} 
-            onChange={(e) => setContent(e.target.value)} 
-          />
-        </div>
-        <button type="submit">Create Topic</button>
-      </form>
+
+        <form id="createTopicForm" onSubmit={(e) => handleSubmit(e)}>
+          <div className="formField">
+            <label className="formLabel" htmlFor="topicTitle">Title</label>
+            <input
+              id="topicTitle"
+              className="textInput"
+              type="text"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              placeholder="e.g., Thoughts on the latest policy changes?"
+              aria-required="true"
+            />
+          </div>
+
+          <div className="formField">
+            <label className="formLabel" htmlFor="topicContent">Content</label>
+            <textarea
+              id="topicContent"
+              className="textarea"
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+              placeholder="Share context, sources, or a question to kick things off..."
+              aria-required="true"
+            />
+          </div>
+
+          <div className="formActions">
+            <button type="submit" className="actionBtn saveBtn">Create Topic</button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };

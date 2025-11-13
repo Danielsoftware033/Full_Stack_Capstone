@@ -1,0 +1,128 @@
+/* ==================== MAIN CONTAINER ==================== */
+#createTopicView {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem 3%;
+  background-color: #f8f9fa;
+  min-height: 100vh;
+}
+
+/* ==================== CARD ==================== */
+#createTopicCard {
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  overflow: hidden;
+}
+
+#createTopicHeader {
+  padding: 1.25rem 1.5rem 1rem 1.5rem;
+  border-bottom: 3px solid #1e2a8f;
+}
+
+#createTopicTitle {
+  margin: 0 0 0.25rem 0;
+  font-size: 1.75rem;
+  font-weight: 700;
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: #1a1a1a;
+}
+
+#createTopicSubtitle {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #666666;
+}
+
+/* ==================== FORM ==================== */
+#createTopicForm {
+  padding: 1.25rem 1.5rem 1.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.formField { display: flex; flex-direction: column; gap: 6px; }
+.formLabel { font-weight: 600; font-size: 0.9rem; color: #1a1a1a; }
+
+.textInput, .textarea {
+  width: 100%;
+  padding: 8px 10px;
+  font-size: 0.85rem;
+  font-weight: 400; /* normal weight for all inputs */
+  border: 2px solid #d0d0d0;
+  border-radius: 6px;
+  background: #ffffff;
+  color: #1a1a1a;
+  box-sizing: border-box;
+}
+
+.textInput {
+  padding: 4px 10px; /* even shorter for compact single-line input */
+  font-size: 0.75rem; /* significantly smaller text */
+}
+
+/* Specific ID override to force non-bold */
+#topicTitle {
+  font-weight: 400 !important;
+}
+
+.textInput::placeholder,
+.textarea::placeholder {
+  font-size: 0.75rem; /* match smaller input size */
+  color: #8a94a6; /* softer placeholder color */
+  opacity: 1;     /* ensure consistent rendering across browsers */
+}
+
+.textarea { min-height: 120px; resize: vertical; }
+
+.textInput:focus, .textarea:focus {
+  outline: none;
+  border-color: #1e2a8f;
+  box-shadow: 0 0 0 3px rgba(30,42,143,0.1);
+}
+
+.formActions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 6px; }
+
+/* ==================== BUTTONS ==================== */
+.actionBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  padding: 0 12px;
+  min-width: 110px;
+  box-sizing: border-box;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: 0.2px;
+  color: #1a1a1a;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.15s ease, box-shadow 0.15s ease, color 0.15s ease;
+  background: #ffffff;
+}
+
+.actionBtn:hover { background-color: #f6f8fa; box-shadow: 0 1px 3px rgba(0,0,0,0.12); }
+
+.saveBtn { color: #1e7e34; border-color: #1e7e34; }
+.saveBtn:hover { color: #ffffff; background-color: #1e7e34; box-shadow: 0 2px 6px rgba(30,126,52,0.25); }
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 768px) {
+  #createTopicTitle { font-size: 1.5rem; }
+  .textInput::placeholder,
+  .textarea::placeholder { font-size: 0.8rem; }
+}
+
+/* ==================== ACCESSIBILITY ==================== */
+.textInput:focus, .textarea:focus, .actionBtn:focus {
+  outline: 2px solid #1e2a8f;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .actionBtn, .textInput, .textarea { transition: none; }
+}
