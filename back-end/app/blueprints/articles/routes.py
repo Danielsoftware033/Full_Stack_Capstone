@@ -197,6 +197,38 @@ def delete_article(article_id):
     return jsonify({"message": f"Successfully deleted article {article_id}"}), 200
 
 
+@articles_bp.route('/remove-duplicates', methods=['POST'])
+def remove_duplicates():
+    """Remove duplicate articles from database, keeping only the most recent one for each URL"""
+    # Find all URLs that have duplicates
+    duplicate_urls = db.session.query(Articles.url, func.count(Articles.id).label('count'))\
+        .group_by(Articles.url)\
+        .having(func.count(Articles.id) > 1)\
+        .all()
+    
+    removed_count = 0
+    
+    for url, count in duplicate_urls:
+        # Get all articles with this URL, ordered by ID (keep the first/oldest one)
+        articles = db.session.query(Articles)\
+            .filter(Articles.url == url)\
+            .order_by(Articles.id.asc())\
+            .all()
+        
+        # Delete all but the first one
+        for article in articles[1:]:
+            db.session.delete(article)
+            removed_count += 1
+    
+    db.session.commit()
+    
+    return jsonify({
+        "message": "Duplicates removed successfully",
+        "duplicate_urls_found": len(duplicate_urls),
+        "articles_removed": removed_count
+    }), 200
+
+
 @articles_bp.route('/fetch', methods=['GET'])
 def fetch_articles():
 
@@ -213,8 +245,17 @@ def fetch_articles():
         return jsonify({"message": "No articles found"}), 404
 
     articles_added = []
+    duplicates_skipped = 0
 
     for a in data:
+        article_url = a.get('url')
+        
+        # Check if article already exists by URL
+        existing_article = db.session.query(Articles).filter(Articles.url == article_url).first()
+        if existing_article:
+            duplicates_skipped += 1
+            continue
+        
         source_name = a.get('source', {}).get('name', '')
         bias = bias_map.get(source_name, 'Unknown')
 
@@ -229,7 +270,7 @@ def fetch_articles():
         new_article = Articles(    #new instance of Articles class
             title=a.get('title'),
             source_name=source_name,
-            url=a.get('url'),
+            url=article_url,
             description=a.get('description'),
             content=a.get('content'),
             image_url=a.get('image'),
@@ -240,7 +281,12 @@ def fetch_articles():
         articles_added.append(new_article)
 
     db.session.commit()
-    return articles_schema.jsonify(articles_added), 201
+    return jsonify({
+        "message": "Fetch complete",
+        "added": len(articles_added),
+        "duplicates_skipped": duplicates_skipped,
+        "articles": articles_schema.dump(articles_added)
+    }), 201
 
 
 @articles_bp.route('/search', methods=['GET'])     # used a combination of gnews.io documents, myself and copilot suggestion for the api function
